@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from roipoly.roipoly import roipoly as rp
+from roipoly import roipoly as rp
 import cv2
 import pylab
 
@@ -10,7 +10,7 @@ cap = cv2.VideoCapture("detectbuoy.avi")
 	#ret, frame = cap.read()
 count = 1
 for img in [1, 4, 7, 10, 13, 16, 19, 22, 25, 28, 31, 34, 37, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200]:
-	frame = cv2.imread('../frames/' + str(180) + '.png')
+	frame = cv2.imread('frames/' + str(img) + '.png')
 	
 #------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -33,7 +33,7 @@ for img in [1, 4, 7, 10, 13, 16, 19, 22, 25, 28, 31, 34, 37, 40, 50, 60, 70, 80,
 	#cv2.imshow('output', output)
 	print(img, count)
 
-	cv2.imwrite(str(180) + '.png', output)
+	cv2.imwrite(str(count) + '.png', output)
 	count += 1
 
 	# if cv2.waitKey(0) & 0xff == 27:	
