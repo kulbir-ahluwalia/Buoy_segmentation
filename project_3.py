@@ -17,7 +17,7 @@ for img in [1, 4, 7, 10, 13, 16, 19, 22, 25, 28, 31, 34, 37, 40, 50, 60, 70, 80,
 	pylab.imshow(frame)
 	roi = rp(roicolor='r')
 	pylab.imshow(frame)
-	#roi.displayROI()
+	##roi.displayROI()
 
 	mask = roi.getMask(frame)
 	#print(frame[100][100])
