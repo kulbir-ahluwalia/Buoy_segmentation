@@ -1,6 +1,7 @@
 import math
 import numpy as np
 import csv
+csv.field_size_limit(1000000000)
 
 GREEN = {}
 YELLOW = {}
@@ -17,7 +18,7 @@ def generateMeanMatrix(color):
     return np.array([[color['B_Mean']], [color['G_Mean']], [color['R_Mean']]], dtype=float)
 
 
-def generateProbGreen(givenInt, coVarMat, meanPt):
+def generateProb(givenInt, coVarMat, meanPt):
     Det_CoVarMatrix = np.linalg.det(coVarMat)
     constant = 1 / (((2 * 3.14) ** 3) * Det_CoVarMatrix) ** (0.5)
 
@@ -35,9 +36,22 @@ for row in reader:
         k, v = row
         GREEN[k] = v
 
+reader = csv.reader(open('yellow.csv', 'r'))
+for row in reader:
+    if row == []:
+        continue
+    else:
+        k, v = row
+        YELLOW[k] = v
+
+givenPt = np.array([[133], [230], [200]], dtype=float)
+
 CoVarMatrix_Green = generateCoVarMatrix(GREEN)
 meanPt_Green = generateMeanMatrix(GREEN)
-givenPt = np.array([[133], [230], [200]], dtype=float)
-print("probability that the intensity is green: ", generateProbGreen(givenPt, CoVarMatrix_Green, meanPt_Green))
-CoVarMatrix_Yellow = np.empty((3, 3))
+print("probability that the intensity is green: ", generateProb(givenPt, CoVarMatrix_Green, meanPt_Green))
+
+CoVarMatrix_Yellow = generateCoVarMatrix(YELLOW)
+meanPt_Yellow = generateMeanMatrix(YELLOW)
+print("probability that the intensity is yellow: ", generateProb(givenPt, CoVarMatrix_Yellow, meanPt_Yellow))
+
 CoVarMatrix_Red = np.empty((3, 3))
