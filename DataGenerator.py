@@ -6,8 +6,8 @@ B_DataSet = []
 G_DataSet = []
 R_DataSet = []
 
-for pic in range(1, 31, 1):                             # green: 40, yellow: 31,
-    img = cv2.imread('yellow/' + str(pic) + '.png')     # green/
+for pic in range(1, 31, 1):                             # green: 40, yellow: 31, orange: 31
+    img = cv2.imread('orange/' + str(pic) + '.png')     # green/
     rows, cols, _ = img.shape
     for i in range(rows):
         for j in range(cols):
@@ -36,6 +36,6 @@ finalMat = np.divide(finalMat, len(B_DataSet))
 
 # co_Var_Matrix = np.array([[B_SD**2, B_SD*G_SD, B_SD*R_SD], [B_SD*G_SD, G_SD**2, G_SD*R_SD], [B_SD*R_SD, G_SD*R_SD, R_SD**2]], dtype=float)
 Data = {"B_intensities": B_DataSet, "G_intensities": G_DataSet, "R_intensities": R_DataSet, "B_Mean": B_Mean, "G_Mean": G_Mean, "R_Mean": R_Mean, "CoVar_Mat": finalMat.tolist()}
-w = csv.writer(open("yellow.csv", "w"))  # green.csv
+w = csv.writer(open("orange.csv", "w"))  # green.csv yellow.csv orange.csv
 for key, val in Data.items():
     w.writerow([key, val])

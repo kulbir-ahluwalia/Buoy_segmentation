@@ -5,7 +5,7 @@ csv.field_size_limit(1000000000)
 
 GREEN = {}
 YELLOW = {}
-RED = {}
+ORANGE = {}
 
 
 def generateCoVarMatrix(color):
@@ -44,6 +44,14 @@ for row in reader:
         k, v = row
         YELLOW[k] = v
 
+reader = csv.reader(open('orange.csv', 'r'))
+for row in reader:
+    if row == []:
+        continue
+    else:
+        k, v = row
+        ORANGE[k] = v
+
 givenPt = np.array([[133], [230], [200]], dtype=float)
 
 CoVarMatrix_Green = generateCoVarMatrix(GREEN)
@@ -54,4 +62,6 @@ CoVarMatrix_Yellow = generateCoVarMatrix(YELLOW)
 meanPt_Yellow = generateMeanMatrix(YELLOW)
 print("probability that the intensity is yellow: ", generateProb(givenPt, CoVarMatrix_Yellow, meanPt_Yellow))
 
-CoVarMatrix_Red = np.empty((3, 3))
+CoVarMatrix_Orange = generateCoVarMatrix(ORANGE)
+meanPt_Orange = generateMeanMatrix(ORANGE)
+print("probability that the intensity is orange: ", generateProb(givenPt, CoVarMatrix_Orange, meanPt_Orange))
