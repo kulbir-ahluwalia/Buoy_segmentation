@@ -45,7 +45,14 @@ class roipoly:
             plt.show()
 
     def getMask(self, currentImage):
-        ny, nx = np.shape(currentImage)
+
+        # np.shape gives 3 values for an RGB image, so we need three variables to take those values
+        ##############################################################
+        ny, nx, c = np.shape(currentImage)
+        ##############################################################
+
+
+
         poly_verts = [(self.allxpoints[0], self.allypoints[0])]
         for i in range(len(self.allxpoints)-1, -1, -1):
             poly_verts.append((self.allxpoints[i], self.allypoints[i]))
