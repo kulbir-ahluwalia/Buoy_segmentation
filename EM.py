@@ -65,7 +65,7 @@ def getGMM(colorClass):
 
 	numPixels = len(pixels)
 	pixels = np.array(pixels)
-	numModels = 5
+	numModels = 2
 	threshold = []
 	weights = []
 	means = []
@@ -166,5 +166,5 @@ def getProbGMM(currPixel, colorClass):
 # -----------------------------------------------------------------------------------------------------
 # HOW TO USE: getProbGMM([1, 1, 1], 'green')
 # -----------------------------------------------------------------------------------------------------
-#getGMM('orange')
+getGMM('yellow')
 #print(GMM)
