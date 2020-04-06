@@ -164,6 +164,36 @@ def getProbGMM(currPixel, colorClass):
 
 	return (p)
 
+
+
+#BGR for green buoy, outside points
+
+# getProbGMM([126, 164, 116], 'green')
+# getProbGMM([128, 160, 113], 'green')
+# getProbGMM([121, 154, 103], 'green')
+# getProbGMM([131, 164, 113], 'green')
+
+# probability for orange buoy inside
+getProbGMM([117, 181, 246], 'orange')
+getProbGMM([113, 171, 247], 'orange')
+getProbGMM([103, 153, 253], 'orange')
+getProbGMM([107, 155, 251], 'orange')
+
+# probability for orange buoy inside
+getProbGMM([117, 181, 246], 'green')
+getProbGMM([113, 171, 247], 'green')
+getProbGMM([103, 153, 253], 'green')
+getProbGMM([107, 155, 251], 'green')
+
+# probability for orange buoy inside
+getProbGMM([117, 181, 246], 'yellow')
+getProbGMM([113, 171, 247], 'yellow')
+getProbGMM([103, 153, 253], 'yellow')
+getProbGMM([107, 155, 251], 'yellow')
+
+
+
+
 # -----------------------------------------------------------------------------------------------------
 # HOW TO USE: getProbGMM([1, 1, 1], 'green')
 # -----------------------------------------------------------------------------------------------------

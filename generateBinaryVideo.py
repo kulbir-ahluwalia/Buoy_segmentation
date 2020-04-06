@@ -26,10 +26,10 @@ individualPixel = np.array([103, 153, 253])
 #print(EM.getProbGMM(individualPixel, 'orange'))
 individualPixel = np.array([107, 155, 251])
 #print(EM.getProbGMM(individualPixel, 'orange'))
-
+count = 0
 while cap.isOpened():
 	ret, frame = cap.read()
-	count = 0
+
 	out = frame.copy()
 	rows, cols, _ = frame.shape
 	binary = np.zeros((rows, cols, 3), np.float32)
