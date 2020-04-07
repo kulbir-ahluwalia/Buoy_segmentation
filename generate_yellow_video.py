@@ -46,6 +46,7 @@ while cap.isOpened():
 				individualPixel[2] = temp
 				#print(i,"x",j,":",individualPixel)
 				if (EM.getProbGMM(individualPixel, 'yellow') >= 3.00e-6):
+				#if (EM.getProbGMM(individualPixel, 'yellow') >= 3.00e-6):
 					binary[i,j] = np.array([255,255,255])
 				# else:
 				#	 frame[i, j] = np.array([255, 255, 255])
