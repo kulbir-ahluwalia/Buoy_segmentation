@@ -26,14 +26,16 @@ individualPixel = np.array([103, 153, 253])
 #print(EM.getProbGMM(individualPixel, 'orange'))
 individualPixel = np.array([107, 155, 251])
 #print(EM.getProbGMM(individualPixel, 'orange'))
-count = 0
+count = -1
 
 
 start = process_time()  # start the time counter for calculating run time
 
 while cap.isOpened():
 	ret, frame = cap.read()
-
+	count += 1
+	# if count < 8:
+	# 	continue
 	if ret == True:
 		out = frame.copy()
 		rows, cols, _ = frame.shape
@@ -45,7 +47,7 @@ while cap.isOpened():
 				individualPixel[0] = individualPixel[2]
 				individualPixel[2] = temp
 				#print(i,"x",j,":",individualPixel)
-				if (EM.getProbGMM(individualPixel, 'green') >= e-6):
+				if (EM.getProbGMM(individualPixel, 'green') >= 5e-6):
 					binary[i,j] = np.array([255,255,255])
 				# else:
 				#	 frame[i, j] = np.array([255, 255, 255])
@@ -53,9 +55,12 @@ while cap.isOpened():
 		#new = cv2.GaussianBlur(new,(5,5),5)
 		edges = cv2.Canny(np.uint8(new),50,255)
 		conts,h = cv2.findContours(edges, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
-		(conts_sorted, boundingBoxes) = contours.sort_contours(conts, method = "left-to-right")
-		hull = cv2.convexHull(conts_sorted[0])
-		(x,y),radius = cv2.minEnclosingCircle(hull)
+		try:
+			(conts_sorted, boundingBoxes) = contours.sort_contours(conts, method = "left-to-right")
+			hull = cv2.convexHull(conts_sorted[0])
+			(x,y),radius = cv2.minEnclosingCircle(hull)
+		except:
+			radius = 0
 		if radius > 6:
 			cv2.circle(out,(int(x),int(y)),int(radius),(0,255,0),4)
 
@@ -67,7 +72,7 @@ while cap.isOpened():
 			cv2.imwrite('output_green/'+str(count)+'.png', out)
 			#images.append(out)
 		#cv2.imshow('frame',edges)
-		count += 1
+
 		if cv2.waitKey(1) & 0xFF == ord('q'):
 			break
 		#break
