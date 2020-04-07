@@ -7,6 +7,7 @@ from time import process_time
 cap = cv2.VideoCapture("detectbuoy.avi")
 
 # points for GREEN (INSIDE)
+#
 # individualPixel = np.array([129, 242, 144])
 # print(EM.getProbGMM(individualPixel, 'green'))
 # individualPixel = np.array([119, 201, 119])
