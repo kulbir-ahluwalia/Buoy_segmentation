@@ -45,7 +45,7 @@ while cap.isOpened():
 				individualPixel[0] = individualPixel[2]
 				individualPixel[2] = temp
 				#print(i,"x",j,":",individualPixel)
-				if (EM.getProbGMM(individualPixel, 'orange') >= 3.00e-6):
+				if (EM.getProbGMM(individualPixel, 'green') >= 3.00e-6):
 					binary[i,j] = np.array([255,255,255])
 				# else:
 				#	 frame[i, j] = np.array([255, 255, 255])
@@ -60,11 +60,11 @@ while cap.isOpened():
 			cv2.circle(out,(int(x),int(y)),int(radius),(0,255,0),4)
 
 			#cv2.imshow("Final output",out)
-			cv2.imwrite('output_orange/'+str(count)+'.png', out)
+			cv2.imwrite('output_green/'+str(count)+'.png', out)
 			#images.append(out)
 		else:
 			#cv2.imshow("Final output",frame)
-			cv2.imwrite('output_orange/'+str(count)+'.png', out)
+			cv2.imwrite('output_green/'+str(count)+'.png', out)
 			#images.append(out)
 		#cv2.imshow('frame',edges)
 		count += 1
