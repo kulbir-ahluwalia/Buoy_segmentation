@@ -3,6 +3,7 @@ import random
 import csv
 import math
 import yaml
+import matplotlib.pyplot as plt
 
 csv.field_size_limit(1000000000)
 GMM_Global = {}
@@ -16,6 +17,10 @@ def generateCoVarMatrix(color):
 
 def generateMeanMatrix(color):
 	return np.array([color['B_Mean'], color['G_Mean'], color['R_Mean']], dtype=float)
+
+def gaussian(x, mu, sigma):
+	return ((1/(sigma * math.sqrt(2 * math.pi))) * np.exp(-np.power(x-mu, 2)/(2 * np.power(sigma,2))))
+
 
 
 def generateProb(givenInt, coVarMat, meanPt):
@@ -132,6 +137,8 @@ def getGMM(colorClass):
 			for k in range(3):
 				data['covMats'][i][j][k] = float(covs[i][j][k])
 
+
+
 	with open(colorClass + '_GMM.yaml', mode='w') as file:
 		yaml.dump(data, file)
 
@@ -173,24 +180,64 @@ def getProbGMM(currPixel, colorClass):
 # getProbGMM([121, 154, 103], 'green')
 # getProbGMM([131, 164, 113], 'green')
 
-# probability for orange buoy inside
-getProbGMM([117, 181, 246], 'orange')
-getProbGMM([113, 171, 247], 'orange')
-getProbGMM([103, 153, 253], 'orange')
-getProbGMM([107, 155, 251], 'orange')
+# # probability for orange buoy inside
+# getProbGMM([117, 181, 246], 'orange')
+# getProbGMM([113, 171, 247], 'orange')
+# getProbGMM([103, 153, 253], 'orange')
+# getProbGMM([107, 155, 251], 'orange')
+#
+# # probability for orange buoy inside
+# getProbGMM([117, 181, 246], 'green')
+# getProbGMM([113, 171, 247], 'green')
+# getProbGMM([103, 153, 253], 'green')
+# getProbGMM([107, 155, 251], 'green')
+#
+# # probability for orange buoy inside
+# getProbGMM([117, 181, 246], 'yellow')
+# getProbGMM([113, 171, 247], 'yellow')
+# getProbGMM([103, 153, 253], 'yellow')
+# getProbGMM([107, 155, 251], 'yellow')
+color = 'orange'
+if GMM_Global.get(color, None) == None:
+	print("in")
+	with open(color + '_GMM.yaml', mode='r') as file:
 
-# probability for orange buoy inside
-getProbGMM([117, 181, 246], 'green')
-getProbGMM([113, 171, 247], 'green')
-getProbGMM([103, 153, 253], 'green')
-getProbGMM([107, 155, 251], 'green')
+		GMM = yaml.safe_load(file)
+	covs = []
+	means = []
+	for i in range(len(GMM['weights'])):
+		means.append([])
+		covs.append([])
+		for j in range(3):
+			means[i].append(GMM['means'][i][j])
+			covs[i].append([])
+			for k in range(3):
+				covs[i][j].append(GMM['covMats'][i][j][k])
+	GMM_Global[color] = {}
+	GMM_Global[color]['length'] = len(GMM['weights'])
+	GMM_Global[color]['means'] = np.array(means)
+	GMM_Global[color]['covs'] = np.array(covs)
 
-# probability for orange buoy inside
-getProbGMM([117, 181, 246], 'yellow')
-getProbGMM([113, 171, 247], 'yellow')
-getProbGMM([103, 153, 253], 'yellow')
-getProbGMM([107, 155, 251], 'yellow')
 
+mean_r = GMM_Global[color]['means'][0][0]
+mean_g = GMM_Global[color]['means'][0][1]
+mean_b = GMM_Global[color]['means'][0][2]
+
+std_r = np.sqrt(GMM_Global[color]['covs'][0][0][0])
+std_g = np.sqrt(GMM_Global[color]['covs'][0][1][1])
+std_b = np.sqrt(GMM_Global[color]['covs'][0][2][2])
+
+x = list(range(0,256))
+
+gauss_b = gaussian(x, mean_b, std_b)
+gauss_g = gaussian(x, mean_g, std_g)
+gauss_r = gaussian(x, mean_r,std_r)
+
+plt.plot(gauss_b,color='b')
+plt.plot(gauss_g,color='g')
+plt.plot(gauss_r,color='r')
+plt.savefig('gaussian_'+color+'.jpg')
+plt.show()
 
 
 
