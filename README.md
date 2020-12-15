@@ -1,3 +1,6 @@
+# Output video
+Link: https://drive.google.com/drive/u/2/folders/1gdFTJFqFFvxLCYgYxuwSgpzTNCbogE3c 
+
 # Buoy_segmentation for 3D gaussian
 To detect the yellow buoy, open a terminal and run: 
 ``` 
